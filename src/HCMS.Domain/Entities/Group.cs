@@ -19,5 +19,12 @@ namespace HCMS.Domain.Entities
 
         public string Type { get; set; } = null!;
 
+        public Guid ShiftId { get; set; }
+
+        public Shift Shift { get; set; } = null!;
+
+        public List<Player> Player { get; set; } = new List<Player>();
+
+        public List<Event> Events { get; set; } = new List<Event>();
     }
 }

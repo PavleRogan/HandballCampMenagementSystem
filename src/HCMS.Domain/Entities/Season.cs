@@ -20,6 +20,7 @@ namespace HCMS.Domain.Entities
 
         public string LocationCity { get; set; } = null!;
 
+        public List<Shift> Shifts { get; set; } = new List<Shift>();
 
     }
 }

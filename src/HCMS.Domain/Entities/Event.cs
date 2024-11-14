@@ -19,5 +19,7 @@ namespace HCMS.Domain.Entities
         public DateTime End { get; set; }
 
         public Guid CoachId { get; set; }
+
+        public List<Group> Groups { get; set; } = new List<Group>();
     }
 }

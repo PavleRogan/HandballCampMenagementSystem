@@ -4,6 +4,7 @@ using HCMS.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HCMS.Infrastructure.Migrations
 {
     [DbContext(typeof(HCMSDbContext))]
-    partial class HCMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241114104156_SeedingDataFix2")]
+    partial class SeedingDataFix2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,36 +24,6 @@ namespace HCMS.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EventGroup", b =>
-                {
-                    b.Property<Guid>("EventsEventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GroupsGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("EventsEventId", "GroupsGroupId");
-
-                    b.HasIndex("GroupsGroupId");
-
-                    b.ToTable("EventGroup");
-                });
-
-            modelBuilder.Entity("GroupPlayer", b =>
-                {
-                    b.Property<Guid>("GroupsGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PlayerUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("GroupsGroupId", "PlayerUserId");
-
-                    b.HasIndex("PlayerUserId");
-
-                    b.ToTable("GroupPlayer");
-                });
 
             modelBuilder.Entity("HCMS.Domain.Entities.Application", b =>
                 {
@@ -99,40 +72,6 @@ namespace HCMS.Infrastructure.Migrations
                     b.HasKey("EventId");
 
                     b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("HCMS.Domain.Entities.Group", b =>
-                {
-                    b.Property<Guid>("GroupId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfMembers")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SeniorityLevel")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ShiftId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GroupId");
-
-                    b.HasIndex("ShiftId");
-
-                    b.ToTable("Group");
                 });
 
             modelBuilder.Entity("HCMS.Domain.Entities.Season", b =>
@@ -189,47 +128,6 @@ namespace HCMS.Infrastructure.Migrations
                     b.HasIndex("SeasonId");
 
                     b.ToTable("Shifts");
-                });
-
-            modelBuilder.Entity("HCMS.Domain.Entities.TestingRecord", b =>
-                {
-                    b.Property<Guid>("TestingRecordId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("BodyFatPercentage")
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<decimal>("Height")
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<int>("JumpHeightCm")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("MeasurementDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("PushUpCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SprintTime")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.HasKey("TestingRecordId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("TestingRecords");
                 });
 
             modelBuilder.Entity("HCMS.Domain.Entities.User", b =>
@@ -333,36 +231,6 @@ namespace HCMS.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("Player");
                 });
 
-            modelBuilder.Entity("EventGroup", b =>
-                {
-                    b.HasOne("HCMS.Domain.Entities.Event", null)
-                        .WithMany()
-                        .HasForeignKey("EventsEventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HCMS.Domain.Entities.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupsGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GroupPlayer", b =>
-                {
-                    b.HasOne("HCMS.Domain.Entities.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupsGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HCMS.Domain.Entities.Player", null)
-                        .WithMany()
-                        .HasForeignKey("PlayerUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("HCMS.Domain.Entities.Application", b =>
                 {
                     b.HasOne("HCMS.Domain.Entities.Player", "Player")
@@ -382,17 +250,6 @@ namespace HCMS.Infrastructure.Migrations
                     b.Navigation("Shift");
                 });
 
-            modelBuilder.Entity("HCMS.Domain.Entities.Group", b =>
-                {
-                    b.HasOne("HCMS.Domain.Entities.Shift", "Shift")
-                        .WithMany("Groups")
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Shift");
-                });
-
             modelBuilder.Entity("HCMS.Domain.Entities.Shift", b =>
                 {
                     b.HasOne("HCMS.Domain.Entities.Season", "Season")
@@ -404,17 +261,6 @@ namespace HCMS.Infrastructure.Migrations
                     b.Navigation("Season");
                 });
 
-            modelBuilder.Entity("HCMS.Domain.Entities.TestingRecord", b =>
-                {
-                    b.HasOne("HCMS.Domain.Entities.Player", "Player")
-                        .WithMany("TestingRecords")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
-                });
-
             modelBuilder.Entity("HCMS.Domain.Entities.Season", b =>
                 {
                     b.Navigation("Shifts");
@@ -423,15 +269,11 @@ namespace HCMS.Infrastructure.Migrations
             modelBuilder.Entity("HCMS.Domain.Entities.Shift", b =>
                 {
                     b.Navigation("Applications");
-
-                    b.Navigation("Groups");
                 });
 
             modelBuilder.Entity("HCMS.Domain.Entities.Player", b =>
                 {
                     b.Navigation("Applications");
-
-                    b.Navigation("TestingRecords");
                 });
 #pragma warning restore 612, 618
         }

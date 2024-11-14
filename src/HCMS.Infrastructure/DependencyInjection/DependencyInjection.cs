@@ -1,4 +1,5 @@
 ﻿using HCMS.Infrastructure.Persistence;
+using HCMS.Infrastructure.Seeder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,6 +18,9 @@ namespace HCMS.Infrastructure.DependencyInjection
             {
                 options.UseSqlServer(connectionString);
             });
+
+            services.AddScoped<IDataSeeder, DataSeeder>();
+
 
             return services;
         }

@@ -18,6 +18,11 @@ namespace HCMS.Infrastructure.Persistence
         public DbSet<Event> Events { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Shift> Shifts { get; set; }
+        public DbSet<Application> Applications { get; set; }
+
+        public DbSet<TestingRecord> TestingRecords { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,19 +34,56 @@ namespace HCMS.Infrastructure.Persistence
                 .HasValue<Coach>("Coach")
                 .HasValue<Player>("Player");
 
+            modelBuilder.Entity<Player>()
+                .Property(p => p.EquipmentSize)
+                .HasColumnName("EquipmentSize");
+            modelBuilder.Entity<Coach>()
+                .Property(p => p.EquipmentSize)
+                .HasColumnName("EquipmentSize");
+            modelBuilder.Entity<Player>()
+                .Property(p => p.TeamName)
+                .HasColumnName("TeamName");
+            modelBuilder.Entity<Coach>()
+                .Property(p => p.TeamName)
+                .HasColumnName("TeamName");
 
-            modelBuilder.Entity<Player>()
-                .Property(p => p.EquipmentSize)
-                .HasColumnName("EquipmentSize");
-            modelBuilder.Entity<Coach>()
-                .Property(p => p.EquipmentSize)
-                .HasColumnName("EquipmentSize");
-            modelBuilder.Entity<Player>()
-                .Property(p => p.TeamName)
-                .HasColumnName("TeamName");
-            modelBuilder.Entity<Coach>()
-                .Property(p => p.TeamName)
-                .HasColumnName("TeamName");
+            modelBuilder.Entity<Shift>()
+                .HasOne(s => s.Season)
+                .WithMany(se => se.Shifts)
+                .HasForeignKey(s => s.SeasonId);
+
+            modelBuilder.Entity<Application>()
+                .HasKey(a => new { a.PlayerId, a.ShiftId }); 
+
+            modelBuilder.Entity<Application>()
+                .HasOne(a => a.Player)
+                .WithMany(p => p.Applications)
+                .HasForeignKey(a => a.PlayerId);
+
+            modelBuilder.Entity<Application>()
+                .HasOne(a => a.Shift)
+                .WithMany(s => s.Applications)
+                .HasForeignKey(a => a.ShiftId);
+
+            modelBuilder.Entity<Group>()
+                .HasOne(g => g.Shift)
+                .WithMany(s => s.Groups)
+                .HasForeignKey(g => g.ShiftId);
+
+            modelBuilder.Entity<Group>()
+                .HasMany(g => g.Player)
+                .WithMany(p => p.Groups);
+
+            modelBuilder.Entity<Event>()
+                .HasMany(e => e.Groups)
+                .WithMany(g => g.Events);
+
+            modelBuilder.Entity<TestingRecord>()
+                .HasOne(t => t.Player)
+                .WithMany(P => P.TestingRecords)
+                .HasForeignKey(t => t.PlayerId);
+
         }
+
     }
 }

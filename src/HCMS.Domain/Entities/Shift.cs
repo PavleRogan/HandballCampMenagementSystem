@@ -17,5 +17,13 @@ namespace HCMS.Domain.Entities
         public int OrderNumber { get; set; }
 
         public int NumberOfPlayers { get; set; }
+
+        public Guid SeasonId { get; set; }
+
+        public Season Season { get; set; } = null!;
+
+        public List<Application> Applications { get; set; } = new List<Application>();
+
+        public List<Group> Groups { get; set; } = new List<Group>();
     }
 }

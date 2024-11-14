@@ -10,4 +10,8 @@
     <ProjectReference Include="..\HCMS.Domain\HCMS.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Interfaces\" />
+  </ItemGroup>
+
 </Project>
