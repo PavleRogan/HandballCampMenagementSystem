@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HCMS.Domain.Entities
 {
-    public class Application
+    public class ShiftApplication
     {
         public Guid PlayerId { get; set; }
         public Guid ShiftId { get; set; }

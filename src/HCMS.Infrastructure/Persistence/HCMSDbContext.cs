@@ -18,7 +18,7 @@ namespace HCMS.Infrastructure.Persistence
         public DbSet<Event> Events { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Shift> Shifts { get; set; }
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<ShiftApplication> ShiftApplications { get; set; }
 
         public DbSet<TestingRecord> TestingRecords { get; set; }
 
@@ -52,17 +52,17 @@ namespace HCMS.Infrastructure.Persistence
                 .WithMany(se => se.Shifts)
                 .HasForeignKey(s => s.SeasonId);
 
-            modelBuilder.Entity<Application>()
+            modelBuilder.Entity<ShiftApplication>()
                 .HasKey(a => new { a.PlayerId, a.ShiftId }); 
 
-            modelBuilder.Entity<Application>()
+            modelBuilder.Entity<ShiftApplication>()
                 .HasOne(a => a.Player)
-                .WithMany(p => p.Applications)
+                .WithMany(p => p.ShiftApplications)
                 .HasForeignKey(a => a.PlayerId);
 
-            modelBuilder.Entity<Application>()
+            modelBuilder.Entity<ShiftApplication>()
                 .HasOne(a => a.Shift)
-                .WithMany(s => s.Applications)
+                .WithMany(s => s.ShiftApplications)
                 .HasForeignKey(a => a.ShiftId);
 
             modelBuilder.Entity<Group>()

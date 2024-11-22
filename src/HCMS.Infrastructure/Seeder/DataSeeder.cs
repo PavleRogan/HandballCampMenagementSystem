@@ -85,7 +85,7 @@ namespace HCMS.Infrastructure.Seeder
                     TeamName = "Team A",
                     EquipmentSize = "M",
                     ParentEmail = "parent.john.doe@example.com",
-                    Applications = new List<Application>()
+                    ShiftApplications = new List<ShiftApplication>()
                 };
 
                 var player2 = new Player
@@ -103,14 +103,14 @@ namespace HCMS.Infrastructure.Seeder
                     TeamName = "Team B",
                     EquipmentSize = "L",
                     ParentEmail = "parent.jane.smith@example.com",
-                    Applications = new List<Application>()
+                    ShiftApplications = new List<ShiftApplication>()
                 };
 
                 // Add the players to the context
                 await _context.Users.AddRangeAsync(player1, player2);
 
                 // Create applications linking players to shifts
-                var application1 = new Application
+                var application1 = new ShiftApplication
                 {
                     PlayerId = player1.UserId,
                     ShiftId = shift1.ShiftId,
@@ -120,7 +120,7 @@ namespace HCMS.Infrastructure.Seeder
                     StatusOfApplication = "Pending"
                 };
 
-                var application2 = new Application
+                var application2 = new ShiftApplication
                 {
                     PlayerId = player2.UserId,
                     ShiftId = shift2.ShiftId,
@@ -131,7 +131,7 @@ namespace HCMS.Infrastructure.Seeder
                 };
 
                 // Add the applications to the context
-                await _context.Applications.AddRangeAsync(application1, application2);
+                await _context.ShiftApplications.AddRangeAsync(application1, application2);
 
                 // Save changes asynchronously
                 await _context.SaveChangesAsync();

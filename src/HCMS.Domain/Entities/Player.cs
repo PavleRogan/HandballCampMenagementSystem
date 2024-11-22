@@ -16,7 +16,7 @@ namespace HCMS.Domain.Entities
 
         public string? ParentEmail { get; set; }
 
-        public List<Application> Applications { get; set; } = new List<Application>();
+        public List<ShiftApplication> ShiftApplications { get; set; } = new List<ShiftApplication>();
 
         public List<Group> Groups { get; set; } = new List<Group>();
 

@@ -1,5 +1,8 @@
 using HCMS.Infrastructure.DependencyInjection;
 using HCMS.Infrastructure.Seeder;
+using HCMS.Application.DependencyInjection;
+using HCMS.Api.Middlewares;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("HCMSDb"));
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
@@ -26,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

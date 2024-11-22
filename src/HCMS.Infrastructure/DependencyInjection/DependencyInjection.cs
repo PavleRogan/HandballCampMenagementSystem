@@ -1,4 +1,6 @@
-﻿using HCMS.Infrastructure.Persistence;
+﻿using HCMS.Application.Common.Interfaces;
+using HCMS.Infrastructure.Persistence;
+using HCMS.Infrastructure.Repositories;
 using HCMS.Infrastructure.Seeder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +22,9 @@ namespace HCMS.Infrastructure.DependencyInjection
             });
 
             services.AddScoped<IDataSeeder, DataSeeder>();
+
+            services.AddScoped<ISeasonsRepository,SeasonsRepository>();
+            services.AddScoped<IShiftsRepository, ShiftsRepository>();
 
 
             return services;
