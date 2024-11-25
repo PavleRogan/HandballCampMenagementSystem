@@ -51,7 +51,7 @@ namespace HCMS.Infrastructure.Seeder
                 var shift1 = new Shift
                 {
                     StartDate = new DateOnly(2024, 3, 1),
-                    EndDate = new DateTime(2024, 3, 10, 18, 0, 0),
+                    EndDate = new DateOnly(2024, 3, 10),
                     OrderNumber = 1,
                     NumberOfPlayers = 20,
                     SeasonId = season1.SeasonId
@@ -60,7 +60,7 @@ namespace HCMS.Infrastructure.Seeder
                 var shift2 = new Shift
                 {
                     StartDate = new DateOnly(2024, 4, 1),
-                    EndDate = new DateTime(2024, 4, 10, 18, 0, 0),
+                    EndDate = new DateOnly(2024, 4, 10),
                     OrderNumber = 2,
                     NumberOfPlayers = 25,
                     SeasonId = season2.SeasonId

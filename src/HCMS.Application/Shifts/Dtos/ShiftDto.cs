@@ -1,15 +1,14 @@
-﻿using System;
+﻿using HCMS.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMS.Domain.Entities
+namespace HCMS.Application.Shifts.Dtos
 {
-    public class Shift
+    public class ShiftDto
     {
-        public Guid ShiftId { get; set; }
-
         public DateOnly StartDate { get; set; }
 
         public DateOnly EndDate { get; set; }
@@ -21,9 +20,5 @@ namespace HCMS.Domain.Entities
         public Guid SeasonId { get; set; }
 
         public Season Season { get; set; } = null!;
-
-        public List<ShiftApplication> ShiftApplications { get; set; } = new List<ShiftApplication>();
-
-        public List<Group> Groups { get; set; } = new List<Group>();
     }
 }

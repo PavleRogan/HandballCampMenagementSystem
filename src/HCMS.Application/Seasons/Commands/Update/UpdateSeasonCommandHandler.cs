@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HCMS.Application.Common.Interfaces;
+using HCMS.Domain.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HCMS.Application.Seasons.Commands.Update
 {
-    internal class UpdateSeasonCommandHandler(ISeasonsRepository seasonsRepository, IMapper mapper) : IRequestHandler<UpdateSeasonCommand>
+    internal class UpdateSeasonCommandHandler(ISeasonsRepository seasonsRepository) : IRequestHandler<UpdateSeasonCommand>
     {
         public async Task Handle(UpdateSeasonCommand request, CancellationToken cancellationToken)
         {
@@ -17,7 +18,7 @@ namespace HCMS.Application.Seasons.Commands.Update
             var season = await seasonsRepository.GetById(request.SeasonId);
             if (season == null)
             {
-                throw new NotImplementedException();
+                throw new NotFoundException($"Season with id: {request.SeasonId} not found.");
 
             }
 

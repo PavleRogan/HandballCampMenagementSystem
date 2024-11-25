@@ -9,6 +9,8 @@ namespace HCMS.Application.Seasons.Dtos
 {
     public class SeasonDto
     {
+        public Guid SeasonId { get; set; }
+
         public string Name { get; set; } = null!;
 
         public int Year { get; set; }

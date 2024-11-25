@@ -20,22 +20,16 @@ namespace HCMS.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> CreateSeason([FromBody] CreateSeasonCommand command)
+        public async Task<IActionResult> CreateSeason([FromBody] CreateSeasonCommand command)
         {
             var id = await _mediator.Send(command);
-            return Ok(id);
+            return CreatedAtAction(nameof(GetSeasonById), new { id }, id);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<SeasonDto>> GetSeasonById([FromRoute] Guid id)
         {
             var season = await _mediator.Send(new GetSeasonByIdQuery(id));
-
-            if (season == null)
-            {
-                return NotFound();
-            }
-
             return Ok(season);
         }
 

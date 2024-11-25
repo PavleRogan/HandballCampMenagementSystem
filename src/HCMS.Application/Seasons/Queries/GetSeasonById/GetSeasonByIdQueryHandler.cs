@@ -2,6 +2,7 @@
 using HCMS.Application.Common.Interfaces;
 using HCMS.Application.Seasons.Dtos;
 using HCMS.Domain.Entities;
+using HCMS.Domain.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,12 @@ namespace HCMS.Application.Seasons.Queries.GetSeasonById
         public async Task<SeasonDto> Handle(GetSeasonByIdQuery request, CancellationToken cancellationToken)
         {
             var season = await seasonsRepository.GetById(request.Id);
+
+            if (season == null)
+            {
+                throw new NotFoundException($"Season with id: {request.Id} not found.");
+
+            }
 
             var seasonDto = mapper.Map<SeasonDto>(season);
           

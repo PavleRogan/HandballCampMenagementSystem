@@ -1,15 +1,14 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMS.Domain.Entities
+namespace HCMS.Application.Shifts.Commands.Create
 {
-    public class Shift
+    public class CreateShiftCommand : IRequest<Guid>
     {
-        public Guid ShiftId { get; set; }
-
         public DateOnly StartDate { get; set; }
 
         public DateOnly EndDate { get; set; }
@@ -19,11 +18,5 @@ namespace HCMS.Domain.Entities
         public int NumberOfPlayers { get; set; }
 
         public Guid SeasonId { get; set; }
-
-        public Season Season { get; set; } = null!;
-
-        public List<ShiftApplication> ShiftApplications { get; set; } = new List<ShiftApplication>();
-
-        public List<Group> Groups { get; set; } = new List<Group>();
     }
 }
