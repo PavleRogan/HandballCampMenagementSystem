@@ -14,5 +14,7 @@ namespace HCMS.Domain.Entities
 
         public string? EquipmentSize { get; set; }
 
+        public List<CampEvent> CampEvents { get; set; } = new List<CampEvent>();
+
     }
 }

@@ -1,19 +1,20 @@
-﻿using System;
+﻿using HCMS.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMS.Domain.Entities
+namespace HCMS.Application.Groups.Dtos
 {
-    public class Group
+    public class GroupDto
     {
         public Guid GroupId { get; set; }
         public string Name { get; set; } = null!;
 
         public int NumberOfMembers { get; set; }
 
-        public int SeniorityLevel { get; set; } 
+        public int SeniorityLevel { get; set; }
 
         public string Position { get; set; } = null!;
 
@@ -23,8 +24,6 @@ namespace HCMS.Domain.Entities
 
         public Shift Shift { get; set; } = null!;
 
-        public List<Player> Player { get; set; } = new List<Player>();
-
-        public List<CampEvent> CampEvents { get; set; } = new List<CampEvent>();
+        public List<Player>? Player { get; set; }
     }
 }

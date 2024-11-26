@@ -15,9 +15,11 @@ namespace HCMS.Infrastructure.Persistence
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Event> Events { get; set; }
+        public DbSet<CampEvent> CampEvents { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Shift> Shifts { get; set; }
+        public DbSet<Group> Groups { get; set; }
+
         public DbSet<ShiftApplication> ShiftApplications { get; set; }
 
         public DbSet<TestingRecord> TestingRecords { get; set; }
@@ -74,15 +76,19 @@ namespace HCMS.Infrastructure.Persistence
                 .HasMany(g => g.Player)
                 .WithMany(p => p.Groups);
 
-            modelBuilder.Entity<Event>()
+            modelBuilder.Entity<CampEvent>()
                 .HasMany(e => e.Groups)
-                .WithMany(g => g.Events);
+                .WithMany(g => g.CampEvents);
 
             modelBuilder.Entity<TestingRecord>()
                 .HasOne(t => t.Player)
                 .WithMany(P => P.TestingRecords)
                 .HasForeignKey(t => t.PlayerId);
-
+            modelBuilder.Entity<CampEvent>()
+                .HasOne(e => e.Coach) 
+                .WithMany(c => c.CampEvents) 
+                .HasForeignKey(e => e.CoachId) 
+                .OnDelete(DeleteBehavior.SetNull); 
         }
 
     }

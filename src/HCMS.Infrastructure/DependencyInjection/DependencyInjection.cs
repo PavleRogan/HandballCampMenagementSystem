@@ -25,6 +25,9 @@ namespace HCMS.Infrastructure.DependencyInjection
 
             services.AddScoped<ISeasonsRepository,SeasonsRepository>();
             services.AddScoped<IShiftsRepository, ShiftsRepository>();
+            services.AddScoped<IGroupsRepository, GroupsRepository>();
+            services.AddScoped<ICampEventsRepository, CampEventRepository>();
+
 
 
             return services;

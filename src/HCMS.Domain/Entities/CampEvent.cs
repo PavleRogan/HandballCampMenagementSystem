@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HCMS.Domain.Entities
 {
-    public class Event
+    public class CampEvent
     {
-        public Guid EventId { get; set; }
+        public Guid CampEventId { get; set; }
 
         public string Name { get; set; } = null!;
 
@@ -18,7 +18,9 @@ namespace HCMS.Domain.Entities
 
         public DateTime End { get; set; }
 
-        public Guid CoachId { get; set; }
+        public Guid? CoachId { get; set; }
+
+        public Coach? Coach { get; set; }
 
         public List<Group> Groups { get; set; } = new List<Group>();
     }

@@ -53,7 +53,7 @@ namespace HCMS.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{shiftId")]
+        [HttpDelete("{shiftId}")]
         public async Task<IActionResult> DeleteShift(Guid shiftId)
         {
             await mediator.Send(new DeleteShiftCommand(shiftId));
