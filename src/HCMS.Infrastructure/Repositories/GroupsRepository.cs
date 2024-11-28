@@ -17,6 +17,15 @@ namespace HCMS.Infrastructure.Repositories
         {
             this._context = context;
         }
+
+        public async Task AddPlayerToGroup(Group group, Player player)
+        {
+            group.Player.Add(player);
+
+            await _context.SaveChangesAsync();
+
+        }
+
         public async Task<Guid> Create(Group group)
         {
             _context.Groups.Add(group);

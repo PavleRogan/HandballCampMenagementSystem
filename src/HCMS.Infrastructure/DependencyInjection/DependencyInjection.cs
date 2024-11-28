@@ -27,6 +27,9 @@ namespace HCMS.Infrastructure.DependencyInjection
             services.AddScoped<IShiftsRepository, ShiftsRepository>();
             services.AddScoped<IGroupsRepository, GroupsRepository>();
             services.AddScoped<ICampEventsRepository, CampEventRepository>();
+            services.AddScoped<IPlayersRepository, PlayersRepository>();
+            services.AddScoped<IAdminsRepository, AdminsRepository>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 
 

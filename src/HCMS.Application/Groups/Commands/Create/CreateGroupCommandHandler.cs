@@ -33,9 +33,9 @@ namespace HCMS.Application.Groups.Commands.Create
                 Shift = shift
 
             };
-            await groupsRepository.Create(group);
+            var id = await groupsRepository.Create(group);
 
-            return group.ShiftId;
+            return id;
 
         }   
     }

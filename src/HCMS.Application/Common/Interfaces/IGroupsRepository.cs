@@ -14,5 +14,7 @@ namespace HCMS.Application.Common.Interfaces
         Task<IEnumerable<Group>> GetAllAsync();
         Task SaveChangesAsync();
         Task Delete(Group group);
+
+        Task AddPlayerToGroup(Group group,Player player);
     }
 }

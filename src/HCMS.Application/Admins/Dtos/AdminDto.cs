@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMS.Domain.Entities
+namespace HCMS.Application.Admins.Dtos
 {
-    public abstract class User
+    public class AdminDto
     {
         public Guid UserId { get; set; }
 
@@ -16,16 +16,12 @@ namespace HCMS.Domain.Entities
 
         public string Email { get; set; } = null!;
 
-        public string PasswordHash { get; set; } = null!;
-
         public string PhoneNumber { get; set; } = null!;
 
-        public DateOnly DateOfBirth { get; set; } 
+        public DateOnly DateOfBirth { get; set; }
 
         public string Gender { get; set; } = null!;
 
         public string HomeTown { get; set; } = null!;
-
-
     }
 }

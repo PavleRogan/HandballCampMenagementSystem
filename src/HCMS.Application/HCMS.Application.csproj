@@ -16,4 +16,13 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Coaches\Commands\Delete\" />
+    <Folder Include="Coaches\Commands\Update\" />
+    <Folder Include="Coaches\Dtos\" />
+    <Folder Include="Coaches\Queries\GetAll\" />
+    <Folder Include="Coaches\Queries\GetById\" />
+    <Folder Include="Players\Queries\GetPlayersByGroupId\" />
+  </ItemGroup>
+
 </Project>

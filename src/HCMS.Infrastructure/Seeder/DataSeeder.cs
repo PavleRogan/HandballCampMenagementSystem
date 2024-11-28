@@ -1,4 +1,5 @@
-﻿using HCMS.Domain.Entities;
+﻿using HCMS.Application.Common.Interfaces;
+using HCMS.Domain.Entities;
 using HCMS.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,15 +13,18 @@ namespace HCMS.Infrastructure.Seeder
     internal class DataSeeder : IDataSeeder
     {
         private readonly HCMSDbContext _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public DataSeeder(HCMSDbContext context)
+
+        public DataSeeder(HCMSDbContext context, IPasswordHasher passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
         public async Task SeedData()
         {
             // Check if there are any shifts in the database
-            if (!await _context.Shifts.AnyAsync())
+            if (!await _context.Shifts.AnyAsync() )
             {
                 // Create seasons if they don't exist
                 var season1 = new Season
@@ -76,9 +80,9 @@ namespace HCMS.Infrastructure.Seeder
                     Name = "John",
                     Surname = "Doe",
                     Email = "john.doe@example.com",
-                    Password = "password123", // Replace with a hashed password in production
+                    PasswordHash = _passwordHasher.HashPassword("password123"), // Replace with a hashed password in production
                     PhoneNumber = "1234567890",
-                    DateOfBirdth = new DateOnly(2000, 5, 10),
+                    DateOfBirth = new DateOnly(2000, 5, 10),
                     Gender = "Male",
                     HomeTown = "New York",
                     Position = "Forward",
@@ -94,9 +98,9 @@ namespace HCMS.Infrastructure.Seeder
                     Name = "Jane",
                     Surname = "Smith",
                     Email = "jane.smith@example.com",
-                    Password = "password123", // Replace with a hashed password in production
+                    PasswordHash = _passwordHasher.HashPassword("password123"), // Replace with a hashed password in production
                     PhoneNumber = "0987654321",
-                    DateOfBirdth = new DateOnly(2001, 8, 22),
+                    DateOfBirth = new DateOnly(2001, 8, 22),
                     Gender = "Female",
                     HomeTown = "Los Angeles",
                     Position = "Goalkeeper",

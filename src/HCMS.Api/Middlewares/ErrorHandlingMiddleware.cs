@@ -1,5 +1,6 @@
 ﻿
 using HCMS.Domain.Exceptions;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace HCMS.Api.Middlewares
 {
@@ -17,6 +18,13 @@ namespace HCMS.Api.Middlewares
 
                 await context.Response.WriteAsync(notFound.Message);
             }
+            catch(UserAlreadyExistsException exists) {
+
+                context.Response.StatusCode = 409;
+                await context.Response.WriteAsync(exists.Message);
+
+            }
+
             catch (Exception ex)
             {
                 context.Response.StatusCode = 500;
