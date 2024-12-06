@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HCMS.Application.CampEvents.Commands.Update;
 using HCMS.Application.Groups.Dtos;
 using HCMS.Domain.Entities;
 using System;
@@ -27,8 +28,9 @@ namespace HCMS.Application.CampEvents.Dtos
 
             CreateMap<CampEventDto, CampEvent>()
                 .ForMember(dest => dest.CampEventId, opt => opt.MapFrom(src => src.CampEventId))  
-                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups)); 
+                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups));
 
+            CreateMap<CampEvent, UpdateCampEventCommand>().ReverseMap();
 
         }
     }

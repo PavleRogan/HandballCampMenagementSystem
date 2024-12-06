@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMS.Infrastructure.Repositories
+namespace HCMS.Infrastructure.Helpers
 {
     internal class PasswordHasher : IPasswordHasher
     {
@@ -22,7 +22,7 @@ namespace HCMS.Infrastructure.Repositories
         {
             byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
             byte[] hash = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithm, HashSize);
-            return string.Join(Delimiter, Convert.ToBase64String(salt) , Convert.ToBase64String(hash));
+            return string.Join(Delimiter, Convert.ToBase64String(salt), Convert.ToBase64String(hash));
         }
 
         public bool VerifyPassword(string hashedPassword, string password)

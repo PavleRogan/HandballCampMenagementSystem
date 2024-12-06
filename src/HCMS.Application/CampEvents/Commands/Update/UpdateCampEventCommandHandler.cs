@@ -1,4 +1,5 @@
-﻿using HCMS.Application.Common.Interfaces;
+﻿using AutoMapper;
+using HCMS.Application.Common.Interfaces;
 using HCMS.Domain.Exceptions;
 using MediatR;
 using System;
@@ -12,15 +13,18 @@ namespace HCMS.Application.CampEvents.Commands.Update
     internal class UpdateCampEventCommandHandler : IRequestHandler<UpdateCampEventCommand>
     {
         private readonly ICampEventsRepository _eventRepository;
-        //private readonly ICoachRepository _coachRepository;
+        private readonly ICoachesRepository _coachRepository;
+        private readonly IMapper _mapper;
 
         public UpdateCampEventCommandHandler(
-            ICampEventsRepository eventRepository
-           // ICoachRepository coachRepository
+            ICampEventsRepository eventRepository,
+            ICoachesRepository coachRepository,
+            IMapper mapper
             )
         {
             _eventRepository = eventRepository;
-            //_coachRepository = coachRepository;
+            _coachRepository = coachRepository;
+            _mapper = mapper;
         }
 
         public async Task Handle(UpdateCampEventCommand request, CancellationToken cancellationToken)
@@ -31,16 +35,12 @@ namespace HCMS.Application.CampEvents.Commands.Update
 
             if (request.CoachId.HasValue)
             {
-              //  var coachExists = await _coachRepository.ExistsAsync(request.CoachId.Value);
-              //  if (!coachExists)
-               //     throw new Exception("Coach with the specified ID does not exist.");
+                var coach = await _coachRepository.GetById(request.CoachId.Value);
+                if (coach == null)
+                    throw new Exception("Coach with the specified ID does not exist.");
             }
 
-            eventEntity.Name = request.Name;
-            eventEntity.Description = request.Description;
-            eventEntity.Start = request.Start;
-            eventEntity.End = request.End;
-            eventEntity.CoachId = request.CoachId;
+            _mapper.Map(request, eventEntity);
 
             await _eventRepository.SaveChangesAsync();
 

@@ -2,6 +2,8 @@ using HCMS.Infrastructure.DependencyInjection;
 using HCMS.Infrastructure.Seeder;
 using HCMS.Application.DependencyInjection;
 using HCMS.Api.Middlewares;
+using Serilog;
+using Serilog.Events;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,12 @@ builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("HCMSDb"));
 builder.Services.AddApplication();
 
+builder.Host.UseSerilog((context, configuration) =>
+    configuration
+        .MinimumLevel.Override("Microsoft",LogEventLevel.Warning)
+        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Information)
+        .WriteTo.Console());
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -25,12 +33,15 @@ using (var scope = app.Services.CreateScope())
     await seeder.SeedData();
 }
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

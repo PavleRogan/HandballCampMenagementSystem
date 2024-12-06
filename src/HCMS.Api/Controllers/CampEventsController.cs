@@ -1,5 +1,6 @@
 ﻿using HCMS.Application.CampEvents.Commands.Create;
 using HCMS.Application.CampEvents.Commands.Delete;
+using HCMS.Application.CampEvents.Commands.SubscribeCoachToEvent;
 using HCMS.Application.CampEvents.Commands.SubscribeGroupToEvent;
 using HCMS.Application.CampEvents.Commands.Update;
 using HCMS.Application.CampEvents.Dtos;
@@ -32,11 +33,19 @@ namespace HCMS.Api.Controllers
 
         }
 
-        [HttpPost("events/{eventId}/subscribe-group/{groupId}")]
+        [HttpPost("/{eventId}/subscribe-group/{groupId}")]
         public async Task<IActionResult> SubscribeGroupToEvent(Guid eventId, Guid groupId)
         {
             await _mediator.Send(new SubscribeGroupToEventCommand(eventId, groupId));
             return Ok();
+        }
+
+        [HttpPost("{eventId}/subscribe/{coachId}")]
+        public async Task<IActionResult> SubscribeCoachToEvent(Guid eventId, Guid coachId)
+        {
+            await _mediator.Send(new SubscribeCoachToEventCommand(eventId, coachId));
+
+            return Ok(new { Message = "Coach successfully subscribed to the event." });
         }
 
         [HttpGet]

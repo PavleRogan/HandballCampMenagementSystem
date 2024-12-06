@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,8 @@ namespace HCMS.Domain.Entities
         public int JumpHeightCm { get; set; }
         public int PushUpCount { get; set; }
         public DateTime MeasurementDate { get; set; }
+
+        [StringLength(100)]
         public string Notes { get; set; } = string.Empty;
         public Guid PlayerId { get; set; }
 

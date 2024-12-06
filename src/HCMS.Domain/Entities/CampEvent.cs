@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,10 @@ namespace HCMS.Domain.Entities
     {
         public Guid CampEventId { get; set; }
 
+        [StringLength(100,MinimumLength =5)]
         public string Name { get; set; } = null!;
 
+        [StringLength(150)]
         public string? Description { get; set; }
 
         public DateTime Start {  get; set; }

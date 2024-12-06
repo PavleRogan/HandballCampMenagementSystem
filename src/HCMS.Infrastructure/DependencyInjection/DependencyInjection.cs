@@ -1,4 +1,5 @@
 ﻿using HCMS.Application.Common.Interfaces;
+using HCMS.Infrastructure.Helpers;
 using HCMS.Infrastructure.Persistence;
 using HCMS.Infrastructure.Repositories;
 using HCMS.Infrastructure.Seeder;
@@ -18,7 +19,7 @@ namespace HCMS.Infrastructure.DependencyInjection
         {
             services.AddDbContext<HCMSDbContext>(options =>
             {
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(connectionString).EnableSensitiveDataLogging();
             });
 
             services.AddScoped<IDataSeeder, DataSeeder>();
@@ -30,6 +31,7 @@ namespace HCMS.Infrastructure.DependencyInjection
             services.AddScoped<IPlayersRepository, PlayersRepository>();
             services.AddScoped<IAdminsRepository, AdminsRepository>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<ICoachesRepository, CoachesRepository>();
 
 
 

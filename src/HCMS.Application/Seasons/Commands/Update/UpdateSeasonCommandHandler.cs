@@ -2,6 +2,7 @@
 using HCMS.Application.Common.Interfaces;
 using HCMS.Domain.Exceptions;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ using System.Threading.Tasks;
 
 namespace HCMS.Application.Seasons.Commands.Update
 {
-    internal class UpdateSeasonCommandHandler(ISeasonsRepository seasonsRepository) : IRequestHandler<UpdateSeasonCommand>
+    internal class UpdateSeasonCommandHandler(ISeasonsRepository seasonsRepository, ILogger<UpdateSeasonCommandHandler> logger) : IRequestHandler<UpdateSeasonCommand>
     {
         public async Task Handle(UpdateSeasonCommand request, CancellationToken cancellationToken)
         {
+            logger.LogInformation("Updating shift wit id: {@shift}", request.SeasonId);
+
 
             var season = await seasonsRepository.GetById(request.SeasonId);
             if (season == null)

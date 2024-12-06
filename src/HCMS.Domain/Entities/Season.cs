@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace HCMS.Domain.Entities
     {
         public Guid SeasonId { get; set; }
 
+
+        [StringLength(50)]
         public string Name { get; set; } = null!;
 
         public int Year { get; set; } 
@@ -18,6 +21,7 @@ namespace HCMS.Domain.Entities
 
         public DateOnly EndDate { get; set;}
 
+        [StringLength(50)]
         public string LocationCity { get; set; } = null!;
 
         public List<Shift> Shifts { get; set; } = new List<Shift>();
