@@ -120,7 +120,6 @@ namespace HCMS.Infrastructure.Seeder
                     ShiftId = shift1.ShiftId,
                     Player = player1,
                     Shift = shift1,
-                    DateOfApply = DateOnly.FromDateTime(DateTime.Now),
                     StatusOfApplication = "Pending"
                 };
 
@@ -130,7 +129,6 @@ namespace HCMS.Infrastructure.Seeder
                     ShiftId = shift2.ShiftId,
                     Player = player2,
                     Shift = shift2,
-                    DateOfApply = DateOnly.FromDateTime(DateTime.Now),
                     StatusOfApplication = "Approved"
                 };
 

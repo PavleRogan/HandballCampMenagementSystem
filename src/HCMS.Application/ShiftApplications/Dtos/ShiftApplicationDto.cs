@@ -1,13 +1,14 @@
-﻿using System;
+﻿using HCMS.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMS.Domain.Entities
+namespace HCMS.Application.ShiftApplications.Dtos
 {
-    public class ShiftApplication
+    public class ShiftApplicationDto
     {
         public Guid PlayerId { get; set; }
         public Guid ShiftId { get; set; }
@@ -16,9 +17,9 @@ namespace HCMS.Domain.Entities
 
         public Shift Shift { get; set; } = null!;
 
-        public DateOnly DateOfApply { get; private set; } =  DateOnly.FromDateTime(DateTime.Today);
+        public DateOnly DateOfApply { get; set; }
 
         [StringLength(50)]
-        public string StatusOfApplication { get; set; } = "Pending";
+        public string StatusOfApplication { get; set; } = null!;
     }
 }

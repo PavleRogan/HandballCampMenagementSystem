@@ -32,6 +32,8 @@ namespace HCMS.Infrastructure.DependencyInjection
             services.AddScoped<IAdminsRepository, AdminsRepository>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<ICoachesRepository, CoachesRepository>();
+            services.AddScoped<IShiftApplicationsRepository, ShiftApplicationsRepository>();
+            services.AddScoped<ITestingRecordsRepository, TestingRecordsRepository>();
 
 
 
