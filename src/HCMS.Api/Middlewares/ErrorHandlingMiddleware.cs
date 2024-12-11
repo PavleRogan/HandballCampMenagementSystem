@@ -12,6 +12,11 @@ namespace HCMS.Api.Middlewares
             {
                 await next(context);
             }
+            catch (UnauthorizedAccessException unauthorizedAccess)
+            {
+                context.Response.StatusCode = 401;  
+                await context.Response.WriteAsync(unauthorizedAccess.Message ?? "Unauthorized access.");
+            }
             catch (NotFoundException notFound)
             {
                 context.Response.StatusCode = 404;
@@ -28,7 +33,7 @@ namespace HCMS.Api.Middlewares
             catch (Exception ex)
             {
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync("Something went wrong...");
+                await context.Response.WriteAsync($"Something went wrong..., {ex}");
             }
         }
     }

@@ -9,12 +9,14 @@ using HCMS.Application.Seasons.Dtos;
 using HCMS.Application.Seasons.Queries.GetAllSeasons;
 using HCMS.Application.Seasons.Queries.GetSeasonById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMS.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class PlayersController : ControllerBase
     {
         private IMediator _mediator;

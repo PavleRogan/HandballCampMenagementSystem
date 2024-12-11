@@ -1,4 +1,5 @@
-﻿using HCMS.Application.Common.Interfaces;
+﻿using HCMS.Application.Common.Helpers;
+using HCMS.Application.Common.Interfaces;
 using HCMS.Infrastructure.Helpers;
 using HCMS.Infrastructure.Persistence;
 using HCMS.Infrastructure.Repositories;
@@ -35,7 +36,7 @@ namespace HCMS.Infrastructure.DependencyInjection
             services.AddScoped<IShiftApplicationsRepository, ShiftApplicationsRepository>();
             services.AddScoped<ITestingRecordsRepository, TestingRecordsRepository>();
 
-
+            services.AddScoped<IAuthHelper, AuthHelper>();
 
             return services;
         }
