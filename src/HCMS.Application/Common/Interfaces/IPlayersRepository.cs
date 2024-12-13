@@ -9,7 +9,7 @@ namespace HCMS.Application.Common.Interfaces
 {
     public interface IPlayersRepository
     {
-        //Task<Guid> Create(Player player);
+        Task<Guid> Create(Player player);
         Task<Player?> GetById(Guid id);
         Task<IEnumerable<Player>> GetAllAsync();
         Task SaveChangesAsync();

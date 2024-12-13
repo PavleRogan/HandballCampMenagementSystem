@@ -30,7 +30,7 @@ namespace HCMS.Application.Admins.Commands.Create
                 Gender = request.Gender,
                 HomeTown = request.HomeTown,
                 DateOfBirth = request.DateOfBirth,
-                PasswordHash = passwordHasher.HashPassword(request.Password)
+                PasswordHash = passwordHasher.HashPassword(request.PasswordHash)
             };
 
             var id = await adminsRepository.Create(admin);

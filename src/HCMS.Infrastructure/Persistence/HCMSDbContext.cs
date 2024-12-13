@@ -35,6 +35,9 @@ namespace HCMS.Infrastructure.Persistence
                 .HasValue<Admin>("Admin")
                 .HasValue<Coach>("Coach")
                 .HasValue<Player>("Player");
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
 
             modelBuilder.Entity<Player>()
                 .Property(p => p.EquipmentSize)

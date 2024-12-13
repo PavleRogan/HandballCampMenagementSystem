@@ -8,11 +8,13 @@ using HCMS.Application.Groups.Dtos;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HCMS.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class GroupsController : ControllerBase
     {
         private readonly IMediator _mediator;

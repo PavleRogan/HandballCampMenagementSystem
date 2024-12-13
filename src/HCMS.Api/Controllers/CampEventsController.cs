@@ -11,12 +11,14 @@ using HCMS.Application.Groups.Commands.Create;
 using HCMS.Application.Groups.Commands.Delete;
 using HCMS.Application.Groups.Commands.Update;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMS.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CampEventsController : ControllerBase
     {
         private IMediator _mediator;

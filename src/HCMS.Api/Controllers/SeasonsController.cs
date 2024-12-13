@@ -6,12 +6,15 @@ using HCMS.Application.Seasons.Queries.GetAllSeasons;
 using HCMS.Application.Seasons.Queries.GetSeasonById;
 using HCMS.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMS.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
+
     public class SeasonsController : ControllerBase
     {
         private IMediator _mediator;

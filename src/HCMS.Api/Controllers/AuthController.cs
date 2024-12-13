@@ -1,5 +1,6 @@
 ﻿using HCMS.Application.Common.Helpers;
 using HCMS.Application.Login;
+using HCMS.Application.Register;
 using HCMS.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -7,13 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace HCMS.Api.Controllers
 {
    
-        [Route("api/[controller]")]
-        [ApiController]
-        public class AuthController(IMediator mediator) : ControllerBase
-        {
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthController(IMediator mediator) : ControllerBase
+    {
+       
 
-            [HttpPost("login")]
-            public async Task<IActionResult> Login([FromBody] LoginCommand command)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginCommand command)
             {
                 if (string.IsNullOrEmpty(command.Email) || string.IsNullOrEmpty(command.Password))
                 {
@@ -25,9 +27,16 @@ namespace HCMS.Api.Controllers
 
                 return Ok(new { Token = jwtToken });
                   
-
-             }
-
         }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterCommand command)
+        {
+            var id = await mediator.Send(command);
+
+            return Ok(new { id });
+        }
+
+    }
     
 }

@@ -10,12 +10,14 @@ using HCMS.Application.Coaches.Commands.Update;
 using HCMS.Application.Coaches.Dtos;
 using HCMS.Application.Coaches.Queries.GetById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMS.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
     public class CoachesController : ControllerBase
     {
         private IMediator _mediator;

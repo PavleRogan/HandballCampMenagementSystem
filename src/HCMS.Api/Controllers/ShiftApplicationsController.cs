@@ -12,12 +12,14 @@ using HCMS.Application.Shifts.Queries.GetAll;
 using HCMS.Application.Shifts.Queries.GetById;
 using HCMS.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMS.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ShiftApplicationsController(IMediator mediator) : ControllerBase
     {
         [HttpPost]

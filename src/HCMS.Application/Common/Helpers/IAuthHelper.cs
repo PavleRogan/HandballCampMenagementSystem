@@ -12,5 +12,8 @@ namespace HCMS.Application.Common.Helpers
         public Task<User?> AuthenticateUser(AuthCreds authCreds);
 
         public string GenerateJwt(string userId, string role);
+
+        public Task<bool> UserWithEmailExists(string email);
+
     }
 }

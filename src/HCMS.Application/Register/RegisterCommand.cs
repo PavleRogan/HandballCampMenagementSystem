@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMS.Application.Admins.Commands.Create
+namespace HCMS.Application.Register
 {
-    public class CreateAdminCommand : IRequest<Guid>
+    public class RegisterCommand : IRequest<Guid>
     {
         public Guid UserId { get; set; }
 
@@ -32,5 +32,18 @@ namespace HCMS.Application.Admins.Commands.Create
 
         [StringLength(50)]
         public string HomeTown { get; set; } = null!;
+
+        [StringLength(20)]
+        public string? Position { get; set; }
+
+        [StringLength(50)]
+        public string? TeamName { get; set; }
+
+        [StringLength(5)]
+        public string? EquipmentSize { get; set; }
+
+        [EmailAddress(ErrorMessage = "Enter valid email adress")]
+        public string? ParentEmail { get; set; }
+
     }
 }

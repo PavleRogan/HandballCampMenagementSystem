@@ -12,15 +12,18 @@ using HCMS.Application.TestingRecords.Queries.GetAll;
 using HCMS.Application.TestingRecords.Queries.GetById;
 using HCMS.Application.TestingRecords.Queries.GetByPlayerId;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMS.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class TestingRecordsController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateShift([FromBody] CreateRecordCommand command)
         {
 
@@ -44,6 +47,7 @@ namespace HCMS.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<TestingRecordDto>>> GetAll()
         {
             var r = await mediator.Send(new GetAllRecordsQuery());
@@ -51,6 +55,7 @@ namespace HCMS.Api.Controllers
         }
 
         [HttpPut("{recordId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(Guid recordId, [FromBody] UpdateRecordCommand command)
         {
             if (command.TestingRecordId != recordId)
@@ -62,7 +67,7 @@ namespace HCMS.Api.Controllers
             await mediator.Send(command);
             return NoContent();
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{recordId}")]
         public async Task<IActionResult> DeleteShift(Guid recordId)
         {

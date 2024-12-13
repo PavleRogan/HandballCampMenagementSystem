@@ -65,5 +65,18 @@ namespace HCMS.Infrastructure.Helpers
             return new JwtSecurityTokenHandler().WriteToken(token);
 
         }
+
+        public async Task<bool> UserWithEmailExists(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
     }
 }

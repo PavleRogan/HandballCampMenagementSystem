@@ -17,6 +17,13 @@ namespace HCMS.Infrastructure.Repositories
         {
             this._context = context;
         }
+
+        public async Task<Guid> Create(Player player)
+        {
+            _context.Users.Add(player);
+            await _context.SaveChangesAsync();
+            return player.UserId;
+        }
         public async Task Delete(Player player)
         {
             _context.Users.Remove(player);

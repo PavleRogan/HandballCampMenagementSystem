@@ -8,15 +8,18 @@ using HCMS.Application.Shifts.Dtos;
 using HCMS.Application.Shifts.Queries.GetAll;
 using HCMS.Application.Shifts.Queries.GetById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMS.Api.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
+    [Authorize]
     public class ShiftsController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateShift([FromBody] CreateShiftCommand command)
         {
           
@@ -41,6 +44,7 @@ namespace HCMS.Api.Controllers
         }
 
         [HttpPut("{shiftId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateShift(Guid shiftId, [FromBody] UpdateShiftCommand command)
         {
             if(command.ShiftId != shiftId)
@@ -54,6 +58,7 @@ namespace HCMS.Api.Controllers
         }
 
         [HttpDelete("{shiftId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteShift(Guid shiftId)
         {
             await mediator.Send(new DeleteShiftCommand(shiftId));
